@@ -207,6 +207,8 @@ Start
      -> Rework branch
 ```
 
+![sample](sample.png)
+
 ### 当前限制
 
 - `Fork` 在逻辑上实现了分支拆分，但后端执行目前仍以串行为主
