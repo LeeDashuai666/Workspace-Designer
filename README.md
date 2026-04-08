@@ -425,6 +425,8 @@ Start
      -> Rework branch
 ```
 
+![sample](sample.png)
+
 ### Current Limitations
 
 - Forked branches are logically separated, but backend execution is still mostly sequential
