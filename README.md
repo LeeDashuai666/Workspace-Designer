@@ -10,12 +10,7 @@
 
 它支持用户在画布上设计工作区，将节点绑定到基于 API 的 Agent 实例，运行工作流，查看协作消息，并将结果写入真实的工作区文件夹。
 
-本项目适用于以下场景：
-
-- 调研与证据收集
-- 文书撰写与修改
-- 审核驱动的返工流程
-- 基于角色分工的多 Agent 协作
+本项目适用于**基于角色分工的多 Agent 协作**
 
 当前仓库由以下部分组成：
 
@@ -228,12 +223,7 @@ Start
 
 It allows users to design workspaces on a canvas, bind nodes to API-based agent instances, run workflows, inspect collaboration messages, and write results into real workspace folders.
 
-This project is intended for scenarios such as:
-
-- research and evidence collection
-- document drafting and revision
-- reviewer-driven approval loops
-- role-based multi-agent collaboration
+This project is intended for **role-based multi-agent collaboration**
 
 The current repository combines:
 
