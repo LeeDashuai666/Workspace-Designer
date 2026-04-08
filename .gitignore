@@ -1,0 +1,12 @@
+node_modules/
+data/
+workspaces/
+.docx_extract/
+document_extracted.txt
+src-tauri/target/
+target/
+.vscode/
+.idea/
+*.log
+.env
+.env.*

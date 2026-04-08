@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgentCanvas Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="topbar-brand">
+          <p class="eyebrow">AgentCanvas</p>
+          <div class="title-row">
+            <h1>Workspace Designer</h1>
+            <div class="mode-switch" aria-hidden="true">
+              <span class="mode-pill active">Design</span>
+              <span class="mode-pill">Execution</span>
+              <span class="mode-pill">Agents</span>
+            </div>
+          </div>
+          <p class="subtitle">
+            Build flow nodes, configure agents, and review collaboration.
+          </p>
+        </div>
+        <div class="topbar-actions">
+          <button id="new-workspace-btn" class="secondary" type="button">New Workspace</button>
+          <button id="workspace-manager-btn" class="ghost" type="button">Workspaces</button>
+          <button id="add-node-btn" class="secondary" type="button">Add Node</button>
+          <button id="agent-settings-btn" class="ghost" type="button">Agent Settings</button>
+          <button id="export-btn" class="ghost" type="button">Export JSON</button>
+          <label class="upload-button">
+            Import JSON
+            <input id="import-input" type="file" accept="application/json" />
+          </label>
+          <button id="save-btn" class="ghost">Save Workspace</button>
+          <button id="reset-btn" class="ghost">Reset</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <button id="left-edge-toggle" class="edge-toggle edge-toggle-left" type="button" aria-label="Toggle left panel"></button>
+        <button id="right-edge-toggle" class="edge-toggle edge-toggle-right" type="button" aria-label="Toggle right panel"></button>
+
+        <aside id="panel-left" class="panel panel-left">
+          <div class="panel-heading">
+            <h2>Library</h2>
+            <div class="panel-heading-actions">
+              <button id="new-agent-btn" class="icon-button" type="button" aria-label="New agent instance" title="New agent instance">+</button>
+              <button id="toggle-left-panel-btn" class="icon-button" type="button" aria-label="Hide left panel" title="Hide left panel">×</button>
+            </div>
+          </div>
+          <div class="library-switch" id="library-switch">
+            <button type="button" class="library-switch-btn active" data-library-view="agents">Agents</button>
+            <button type="button" class="library-switch-btn" data-library-view="functions">Function Nodes</button>
+          </div>
+          <div class="library-header-row">
+            <span id="library-title">Agents</span>
+            <span id="library-helper" class="helper-text">Drag to canvas</span>
+          </div>
+          <div id="agent-library" class="agent-library compact-scroll free-agent-list"></div>
+        </aside>
+
+        <div id="left-resizer" class="panel-resizer" aria-hidden="true"></div>
+
+        <section class="canvas-panel">
+          <div class="canvas-overlay-tools">
+            <button id="toggle-status-strip-btn" class="ghost compact-button" type="button">Status</button>
+            <button id="toggle-minimap-btn" class="ghost compact-button" type="button">Map</button>
+          </div>
+          <section class="status-strip canvas-status-strip" id="status-strip"></section>
+          <section id="canvas-minimap" class="canvas-minimap">
+            <div class="canvas-minimap-header">
+              <span>Overview</span>
+              <button id="hide-minimap-btn" class="icon-button compact-icon-button" type="button" aria-label="Hide minimap" title="Hide minimap">×</button>
+            </div>
+            <div id="mini-map-surface" class="mini-map-surface">
+              <div id="mini-map-nodes" class="mini-map-nodes"></div>
+              <div id="mini-map-viewport" class="mini-map-viewport"></div>
+            </div>
+          </section>
+          <div id="canvas" class="canvas">
+            <div id="canvas-surface" class="canvas-surface">
+              <svg id="canvas-links" class="canvas-links"></svg>
+              <div id="canvas-nodes" class="canvas-nodes"></div>
+            </div>
+          </div>
+          <div id="workspace-tabbar" class="workspace-tabbar"></div>
+        </section>
+
+        <div id="right-resizer" class="panel-resizer" aria-hidden="true"></div>
+
+        <aside id="panel-right" class="panel panel-right">
+          <div class="panel-heading">
+            <h2>Properties</h2>
+            <div class="panel-heading-actions">
+              <span>Workspace or node</span>
+              <button id="toggle-right-panel-btn" class="icon-button" type="button" aria-label="Hide properties panel" title="Hide properties panel">×</button>
+            </div>
+          </div>
+          <form id="node-form" class="details-panel"></form>
+        </aside>
+      </main>
+
+      <button id="run-all-btn" class="run-fab" aria-label="Run Workspace" title="Run Workspace" type="button"></button>
+
+      <div id="bottom-resizer" class="bottom-resizer" aria-hidden="true"></div>
+
+      <section class="bottom-dock">
+        <div class="panel-heading compact">
+          <h2>Collaboration</h2>
+          <div class="panel-heading-actions">
+            <span>Workflow messages</span>
+            <button id="clear-log-btn" class="ghost compact-button" type="button">Clear</button>
+          </div>
+        </div>
+        <div id="log-panel" class="log-panel terminal-dock"></div>
+      </section>
+    </div>
+
+    <template id="status-card-template">
+      <article class="status-card">
+        <div class="status-label"></div>
+        <div class="status-value"></div>
+        <div class="status-meta"></div>
+      </article>
+    </template>
+
+    <div id="settings-modal" class="modal-shell" hidden>
+      <div id="settings-backdrop" class="modal-backdrop"></div>
+      <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <div class="panel-heading">
+          <h2 id="settings-title">Agent Settings</h2>
+          <button id="close-settings-btn" class="ghost" type="button">Close</button>
+        </div>
+        <form id="settings-form" class="details-panel settings-panel"></form>
+      </section>
+    </div>
+
+    <div id="workspace-modal" class="modal-shell" hidden>
+      <div id="workspace-backdrop" class="modal-backdrop"></div>
+      <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="workspace-title">
+        <div class="panel-heading">
+          <h2 id="workspace-title">Workspaces</h2>
+          <button id="close-workspace-btn" class="ghost" type="button">Close</button>
+        </div>
+        <div id="template-list" class="template-list compact-scroll workspace-modal-list"></div>
+      </section>
+    </div>
+
+    <div id="context-menu" class="context-menu" hidden></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

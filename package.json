@@ -1,0 +1,14 @@
+{
+  "name": "agentcanvas-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero-dependency AgentCanvas demo",
+  "scripts": {
+    "start": "node server.js",
+    "tauri:dev": "scripts\\tauri-dev.cmd",
+    "tauri:build": "scripts\\tauri-build.cmd"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}
