@@ -2,7 +2,7 @@
 
 ---
 
-## 中文说明
+## 中文说明（The English version follows）
 
 ### 项目简介
 
@@ -214,35 +214,7 @@ Start
 - 不同 OpenAI-compatible provider 对接口的支持并不完全一致
 - 当前以桌面模式为主要目标，浏览器模式下原生能力较少
 
-### 推荐 `.gitignore`
 
-如果你准备将该项目发布到 GitHub，建议至少忽略以下内容：
-
-```gitignore
-node_modules/
-data/
-workspaces/
-.docx_extract/
-document_extracted.txt
-src-tauri/target/
-target/
-.vscode/
-.idea/
-*.log
-.env
-.env.*
-```
-
-### 开发说明
-
-- 工作区状态会保存在本地
-- Agent 配置会保存在本地
-- 消息总线历史会保存在本地
-- Tauri 模式支持使用系统文件夹选择器来选择工作区目录
-
-### 许可证
-
-发布到 GitHub 之前，请补充你希望使用的许可证。
 
 ---
 
@@ -458,32 +430,4 @@ Start
 - Different OpenAI-compatible providers may support different endpoint sets
 - Desktop mode is the primary target; browser mode has fewer native capabilities
 
-### Recommended `.gitignore`
 
-If you plan to publish this repository to GitHub, the following entries are recommended:
-
-```gitignore
-node_modules/
-data/
-workspaces/
-.docx_extract/
-document_extracted.txt
-src-tauri/target/
-target/
-.vscode/
-.idea/
-*.log
-.env
-.env.*
-```
-
-### Development Notes
-
-- Workspace state is persisted locally
-- Agent settings are persisted locally
-- Message bus history is persisted locally
-- Tauri mode supports the system folder picker for workspace selection
-
-### License
-
-Add your preferred license before publishing to GitHub.
